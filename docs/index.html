@@ -1,1 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Strategy Lab</title>
 
+<style>
+:root {
+  --bg: #080b14;
+  --panel: #101625;
+  --panel2: #151c2d;
+  --border: #222b40;
+  --text: #f4f7fb;
+  --muted: #8e9ab2;
+  --accent: #67e8d1;
+  --blue: #7aa7ff;
+  --green: #4ade80;
+  --red: #fb7185;
+  --yellow: #facc15;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(
+    circle at 15% 0%,
+    #18223b 0,
+    #080b14 38%
+  );
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.container {
+  max-width: 1250px;
+  margin: auto;
+  padding: 28px 20px 60px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.logo {
+  width: 45px;
+  height: 45px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, #67e8d1, #6b8cff);
+  display: grid;
+  place-items: center;
+  color: #071018;
+  font-weight: 900;
+}
+
+h1 {
+  margin: 0;
+  font-size: 26px;
+}
+
+.sub {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.status {
+  border: 1px solid var(--border);
+  background: #0d1321;
+  padding: 9px 13px;
+  border-radius: 12px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.status b {
+  color: var(--green);
+}
+
+nav {
+  display: flex;
+  gap: 7px;
+  background: #0d1321;
+  border: 1px solid var(--border);
+  padding: 5px;
+  border-radius: 13px;
+  margin-bottom: 24px;
+}
+
+nav button {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  padding: 10px 15px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-weight: 650;
+}
+
+nav button.active {
+  background: #1a2438;
+  color: var(--text);
+}
+
+.tab {
+  display: none;
+}
+
+.tab.active {
+  display: block;
+}
+
+.grid {
+  display: grid;
+  gap: 14px;
+}
+
+.stats {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.card {
+  background: linear-gradient(
+    145deg,
+    rgba(18,26,43,.96),
+    rgba(13,18,31,.96)
+  );
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.label {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.big {
+  font-size: 27px;
+  font-weight: 800;
+  margin-top: 8px;
+}
+
+.green {
+  color: var(--green);
+}
+
+.red {
+  color: var(--red);
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 25px 0 12px;
+}
+
+.section-title h2 {
+  font-size: 17px;
+  margin: 0;
+}
+
+.section-title span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.market {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.ticker {
+  font-weight: 800;
+  font-size: 17px;
+}
+
+.company {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 3px 0 13px;
+}
+
+.price {
+  font-size: 22px;
+  font-weight: 750;
+}
+
+.move {
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.chart-card {
+  height: 370px;
+  padding: 14px;
+}
+
+.chart-wrap {
+  height: 305px;
+  position: relative;
+}
+
+.chart-wrap canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.two {
+  grid-template-columns: 1.35fr .65fr;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+th {
+  text-align: left;
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding: 11px 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+td {
+  padding: 12px 10px;
+  border-bottom: 1px solid rgba(34,43,64,.65);
+}
+
+.pill {
+  display: inline-flex;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.buy {
+  background: rgba(74,222,128,.12);
+  color: var(--green);
+}
+
+.sell {
+  background: rgba(251,113,133,.12);
+  color: var(--red);
+}
+
+.strategy-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.strategy-card {
+  position: relative;
+}
+
+.strategy-card h3 {
+  margin: 0 0 5px;
+  font-size: 16px;
+}
+
+.desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.strategy-value {
+  font-size: 25px;
+  font-weight: 800;
+  margin-top: 18px;
+}
+
+.rank {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.bar {
+  height: 7px;
+  background: #20283b;
+  border-radius: 99px;
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+.bar i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg,var(--blue),var(--accent));
+  border-radius: 99px;
+}
+
+.note {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 12px;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+@media(max-width:900px) {
+  .stats,
+  .market {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .strategy-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media(max-width:560px) {
+  .container {
+    padding: 18px 12px 45px;
+  }
+
+  header {
+    align-items: flex-start;
+  }
+
+  .status {
+    display: none;
+  }
+
+  .stats,
+  .market {
+    grid-template-columns: 1fr;
+  }
+
+  nav {
+    overflow-x: auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+
+  <div class="brand">
+
+    <div class="logo">
+      AI
+    </div>
+
+    <div>
+      <h1>AI Strategy Lab</h1>
+      <div class="sub">
+        Paper-trading experiment • real market data
+      </div>
+    </div>
+
+  </div>
+
+  <div class="status">
+    Data: <b id="updated">Loading...</b>
+  </div>
+
+</header>
+
+
+<nav>
+
+  <button class="active" data-tab="dashboard">
+    Dashboard
+  </button>
+
+  <button data-tab="trades">
+    Trade Log
+  </button>
+
+  <button data-tab="strategies">
+    Strategies
+  </button>
+
+</nav>
+
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="tab active">
+
+  <div class="grid stats" id="stats"></div>
+
+
+  <div class="section-title">
+
+    <h2>
+      Tracked stocks
+    </h2>
+
+    <span id="dateRange"></span>
+
+  </div>
+
+
+  <div class="grid market" id="market"></div>
+
+
+  <div class="section-title">
+
+    <h2>
+      Strategy performance
+    </h2>
+
+    <span>
+      $1,000 starting balance
+    </span>
+
+  </div>
+
+
+  <div class="card chart-card">
+
+    <div class="chart-wrap">
+
+      <canvas id="performanceChart"></canvas>
+
+    </div>
+
+  </div>
+
+
+  <div class="section-title">
+
+    <h2>
+      Latest trades
+    </h2>
+
+    <span id="tradeCount"></span>
+
+  </div>
+
+
+  <div class="card table-scroll">
+
+    <table>
+
+      <thead>
+
+        <tr>
+          <th>Date</th>
+          <th>Strategy</th>
+          <th>Action</th>
+          <th>Stock</th>
+          <th>Qty</th>
+          <th>Price</th>
+          <th>P/L</th>
+        </tr>
+
+      </thead>
+
+      <tbody id="latestTrades"></tbody>
+
+    </table>
+
+  </div>
+
+</section>
+
+
+
+<!-- TRADE LOG -->
+
+<section id="trades" class="tab">
+
+  <div class="section-title">
+
+    <h2>
+      Complete trade log
+    </h2>
+
+    <span id="allTradeCount"></span>
+
+  </div>
+
+
+  <div class="card table-scroll">
+
+    <table>
+
+      <thead>
+
+        <tr>
+          <th>Date</th>
+          <th>Strategy</th>
+          <th>Action</th>
+          <th>Stock</th>
+          <th>Qty</th>
+          <th>Price</th>
+          <th>Reason</th>
+          <th>P/L</th>
+        </tr>
+
+      </thead>
+
+      <tbody id="allTrades"></tbody>
+
+    </table>
+
+  </div>
+
+</section>
+
+
+
+<!-- STRATEGIES -->
+
+<section id="strategies" class="tab">
+
+  <div
+    class="grid strategy-grid"
+    id="strategyCards">
+  </div>
+
+</section>
+
+</div>
+
+
+<script>
+
+const $ = selector =>
+  document.querySelector(selector);
+
+
+function money(number) {
+
+  return "$" +
+    Number(number).toLocaleString(
+      undefined,
+      {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }
+    );
+
+}
+
+
+function percent(number) {
+
+  return (number >= 0 ? "+" : "") +
+    number.toFixed(2) +
+    "%";
+
+}
+
+
+function calculateValue(ai,state) {
+
+  let value = ai.cash;
+
+  for (const [ticker,holding] of Object.entries(ai.holdings || {})) {
+
+    const prices = state.prices[ticker];
+
+    const latest = prices[prices.length - 1];
+
+    value += holding.qty * latest;
+
+  }
+
+  return value;
+
+}
+
+
+function getAllTrades(state) {
+
+  return Object.values(state.ais)
+
+    .flatMap(ai => ai.trades || [])
+
+    .sort((a,b) => b.day - a.day);
+
+}
+
+
+
+function setupTabs() {
+
+  document
+    .querySelectorAll("nav button")
+    .forEach(button => {
+
+      button.onclick = () => {
+
+        document
+          .querySelectorAll("nav button")
+          .forEach(b =>
+            b.classList.remove("active")
+          );
+
+        document
+          .querySelectorAll(".tab")
+          .forEach(tab =>
+            tab.classList.remove("active")
+          );
+
+        button.classList.add("active");
+
+        document
+          .getElementById(button.dataset.tab)
+          .classList.add("active");
+
+      };
+
+    });
+
+}
+
+
+
+function renderDashboard(state) {
+
+  window.currentState = state;
+
+  document.getElementById("updated").textContent =
+    state.lastUpdated || "Unknown";
+
+
+  document.getElementById("dateRange").textContent =
+    `${state.dates[0]} → ${state.dates[state.dates.length - 1]}`;
+
+
+  const strategies = state.strategies;
+
+  const values = strategies.map(
+    strategy =>
+      calculateValue(
+        state.ais[strategy.id],
+        state
+      )
+  );
+
+
+  const bestValue = Math.max(...values);
+
+  const average =
+    values.reduce(
+      (a,b) => a+b,
+      0
+    ) / values.length;
+
+
+  const trades = getAllTrades(state);
+
+
+  const bestStrategy =
+    strategies.find(
+      strategy =>
+        calculateValue(
+          state.ais[strategy.id],
+          state
+        ) === bestValue
+    );
+
+
+  document.getElementById("stats").innerHTML = `
+
+    <div class="card">
+
+      <div class="label">
+        Best strategy
+      </div>
+
+      <div class="big green">
+        ${bestStrategy.name}
+      </div>
+
+      <div class="sub">
+        ${money(bestValue)} current value
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="label">
+        Average portfolio
+      </div>
+
+      <div class="big">
+        ${money(average)}
+      </div>
+
+      <div class="sub ${average >= 1000 ? "green" : "red"}">
+        ${percent((average / 1000 - 1) * 100)}
+        vs. starting balance
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="label">
+        Trades recorded
+      </div>
+
+      <div class="big">
+        ${trades.length}
+      </div>
+
+      <div class="sub">
+        Across all strategies
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="label">
+        Starting balance
+      </div>
+
+      <div class="big">
+        $1,000
+      </div>
+
+      <div class="sub">
+        Paper trading only
+      </div>
+
+    </div>
+
+  `;
+
+
+
+  document.getElementById("market").innerHTML =
+    Object.entries(state.prices)
+
+      .map(([ticker,prices]) => {
+
+        const first = prices[0];
+
+        const latest =
+          prices[prices.length - 1];
+
+        const change =
+          ((latest / first) - 1) * 100;
+
+        const info =
+          state.meta[ticker] || {};
+
+
+        return `
+
+          <div class="card">
+
+            <div class="ticker">
+              ${ticker}
+            </div>
+
+            <div class="company">
+              ${info.name || ""}
+              •
+              ${info.sector || ""}
+            </div>
+
+            <div class="price">
+              ${money(latest)}
+            </div>
+
+            <div class="move ${change >= 0 ? "green" : "red"}">
+              ${percent(change)}
+              since ${state.dates[0]}
+            </div>
+
+          </div>
+
+        `;
+
+      })
+
+      .join("");
+
+
+
+  document.getElementById("tradeCount").textContent =
+    trades.length + " total";
+
+
+  document.getElementById("latestTrades").innerHTML =
+    trades.slice(0,8)
+
+      .map(trade => `
+
+        <tr>
+
+          <td>${trade.date}</td>
+
+          <td>${trade.ai}</td>
+
+          <td>
+
+            <span class="pill ${
+              trade.action === "BUY"
+              ? "buy"
+              : "sell"
+            }">
+
+              ${trade.action}
+
+            </span>
+
+          </td>
+
+          <td>
+            <b>${trade.t}</b>
+          </td>
+
+          <td>
+            ${trade.qty}
+          </td>
+
+          <td>
+            ${money(trade.price)}
+          </td>
+
+          <td class="${
+            trade.pl == null
+              ? ""
+              : trade.pl >= 0
+              ? "green"
+              : "red"
+          }">
+
+            ${
+              trade.pl == null
+              ? "Open"
+              : (trade.pl >= 0 ? "+" : "") +
+                money(trade.pl)
+            }
+
+          </td>
+
+        </tr>
+
+      `)
+
+      .join("");
+
+
+  renderTradeLog(state);
+
+  renderStrategies(state);
+
+  drawChart(state);
+
+}
+
+
+
+function renderTradeLog(state) {
+
+  const trades =
+    getAllTrades(state);
+
+
+  document.getElementById("allTradeCount").textContent =
+    trades.length + " trades";
+
+
+  document.getElementById("allTrades").innerHTML =
+    trades.map(trade => `
+
+      <tr>
+
+        <td>${trade.date}</td>
+
+        <td>${trade.ai}</td>
+
+        <td>
+
+          <span class="pill ${
+            trade.action === "BUY"
+              ? "buy"
+              : "sell"
+          }">
+
+            ${trade.action}
+
+          </span>
+
+        </td>
+
+        <td>
+          <b>${trade.t}</b>
+        </td>
+
+        <td>
+          ${trade.qty}
+        </td>
+
+        <td>
+          ${money(trade.price)}
+        </td>
+
+        <td>
+          ${trade.reason}
+        </td>
+
+        <td class="${
+          trade.pl == null
+            ? ""
+            : trade.pl >= 0
+            ? "green"
+            : "red"
+        }">
+
+          ${
+            trade.pl == null
+              ? "—"
+              : (trade.pl >= 0 ? "+" : "") +
+                money(trade.pl)
+          }
+
+        </td>
+
+      </tr>
+
+    `).join("");
+
+}
+
+
+
+function renderStrategies(state) {
+
+  const cards =
+    state.strategies
+      .slice()
+      .sort(
+        (a,b) =>
+          calculateValue(
+            state.ais[b.id],
+            state
+          )
+          -
+          calculateValue(
+            state.ais[a.id],
+            state
+          )
+      );
+
+
+  document.getElementById("strategyCards").innerHTML =
+    cards.map((strategy,index) => {
+
+      const ai =
+        state.ais[strategy.id];
+
+      const value =
+        calculateValue(ai,state);
+
+      const returnPercent =
+        (value / 1000 - 1) * 100;
+
+
+      return `
+
+        <div class="card strategy-card">
+
+          <div class="rank">
+            #${index + 1}
+          </div>
+
+          <h3>
+            ${strategy.name}
+          </h3>
+
+          <div class="desc">
+            ${strategy.desc}
+          </div>
+
+          <div class="strategy-value ${
+            returnPercent >= 0
+              ? "green"
+              : "red"
+          }">
+
+            ${money(value)}
+
+          </div>
+
+          <div class="sub ${
+            returnPercent >= 0
+              ? "green"
+              : "red"
+          }">
+
+            ${percent(returnPercent)}
+
+            return
+
+            • ${ai.wins || 0} wins
+
+            /
+
+            ${ai.losses || 0} losses
+
+          </div>
+
+          <div class="bar">
+
+            <i style="
+              width:${Math.max(
+                2,
+                Math.min(100,value / 10)
+              )}%;
+            "></i>
+
+          </div>
+
+          <div class="note">
+
+            Cash:
+            ${money(ai.cash)}
+
+            •
+
+            ${
+              Object.keys(
+                ai.holdings || {}
+              ).length
+            }
+
+            open position(s)
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+
+function drawChart(state) {
+
+  const canvas =
+    document.getElementById(
+      "performanceChart"
+    );
+
+  const context =
+    canvas.getContext("2d");
+
+
+  const rect =
+    canvas.getBoundingClientRect();
+
+
+  const ratio =
+    window.devicePixelRatio || 1;
+
+
+  canvas.width =
+    rect.width * ratio;
+
+  canvas.height =
+    rect.height * ratio;
+
+
+  context.setTransform(
+    ratio,
+    0,
+    0,
+    ratio,
+    0,
+    0
+  );
+
+
+  const width = rect.width;
+
+  const height = rect.height;
+
+
+  const padding = {
+    left: 50,
+    right: 20,
+    top: 20,
+    bottom: 30
+  };
+
+
+  const histories =
+    state.strategies.map(
+      strategy =>
+        state.ais[strategy.id]
+          .valueHistory || []
+    );
+
+
+  const allValues =
+    histories.flat();
+
+
+  let minimum =
+    Math.min(...allValues,1000);
+
+  let maximum =
+    Math.max(...allValues,1000);
+
+
+  minimum -= 2;
+  maximum += 2;
+
+
+  context.clearRect(
+    0,
+    0,
+    width,
+    height
+  );
+
+
+  context.strokeStyle =
+    "#222b40";
+
+  context.fillStyle =
+    "#8e9ab2";
+
+  context.font =
+    "11px system-ui";
+
+
+  for(let i=0;i<5;i++) {
+
+    const y =
+      padding.top +
+      (height -
+       padding.top -
+       padding.bottom) *
+      i / 4;
+
+
+    context.beginPath();
+
+    context.moveTo(
+      padding.left,
+      y
+    );
+
+    context.lineTo(
+      width - padding.right,
+      y
+    );
+
+    context.stroke();
+
+
+    const value =
+      maximum -
+      (maximum - minimum) *
+      i / 4;
+
+
+    context.fillText(
+      "$" + value.toFixed(0),
+      5,
+      y + 4
+    );
+
+  }
+
+
+  const colors = [
+    "#67e8d1",
+    "#7aa7ff",
+    "#facc15",
+    "#fb7185",
+    "#a78bfa"
+  ];
+
+
+  histories.forEach(
+    (history,index) => {
+
+      if(!history.length)
+        return;
+
+
+      context.strokeStyle =
+        colors[index];
+
+      context.lineWidth = 2;
+
+      context.beginPath();
+
+
+      history.forEach(
+        (value,i) => {
+
+          const x =
+            padding.left +
+            (width -
+             padding.left -
+             padding.right) *
+            (
+              i /
+              Math.max(
+                1,
+                history.length - 1
+              )
+            );
+
+
+          const y =
+            padding.top +
+            (height -
+             padding.top -
+             padding.bottom) *
+            (
+              1 -
+              (value - minimum) /
+              (maximum - minimum)
+            );
+
+
+          if(i === 0)
+            context.moveTo(x,y);
+          else
+            context.lineTo(x,y);
+
+        }
+      );
+
+
+      context.stroke();
+
+    }
+  );
+
+}
+
+
+
+async function start() {
+
+  setupTabs();
+
+
+  try {
+
+    const response =
+      await fetch(
+        "data/state.json?cache=" +
+        Date.now()
+      );
+
+
+    if(!response.ok)
+      throw new Error(
+        "state.json could not be loaded"
+      );
+
+
+    const state =
+      await response.json();
+
+
+    renderDashboard(state);
+
+
+  } catch(error) {
+
+    document.body.innerHTML = `
+
+      <div style="
+        font-family:system-ui;
+        color:white;
+        background:#080b14;
+        min-height:100vh;
+        padding:40px;
+      ">
+
+        <h2>
+          AI Strategy Lab
+        </h2>
+
+        <p style="color:#fb7185">
+          Could not load data/state.json.
+        </p>
+
+        <p style="color:#8e9ab2">
+
+          Make sure your repository contains:
+
+          <br><br>
+
+          <b>
+            docs/data/state.json
+          </b>
+
+          <br><br>
+
+          and that GitHub Pages is serving
+          the <b>docs</b> folder.
+
+        </p>
+
+      </div>
+
+    `;
+
+    console.error(error);
+
+  }
+
+}
+
+
+start();
+
+
+window.addEventListener(
+  "resize",
+  () => {
+
+    if(window.currentState)
+      drawChart(window.currentState);
+
+  }
+);
+
+</script>
+
+</body>
+</html>

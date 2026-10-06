@@ -1,0 +1,616 @@
+{
+  "lastUpdated": "Oct 2, 2026",
+  "dates": [
+    "Sep 2",
+    "Sep 3",
+    "Sep 4",
+    "Sep 8",
+    "Sep 9",
+    "Sep 10",
+    "Sep 11",
+    "Sep 14",
+    "Sep 15",
+    "Sep 16",
+    "Sep 17",
+    "Sep 18",
+    "Sep 21",
+    "Sep 22",
+    "Sep 23",
+    "Sep 24",
+    "Sep 25",
+    "Sep 28",
+    "Sep 29",
+    "Sep 30",
+    "Oct 1",
+    "Oct 2"
+  ],
+  "prices": {
+    "JPM": [
+      356.22,
+      362.06,
+      358.64,
+      353.51,
+      354.71,
+      353.56,
+      356.23,
+      350.13,
+      352.49,
+      348.92,
+      349.31,
+      349.67,
+      352.04,
+      340,
+      337.53,
+      338.56,
+      343.06,
+      336.59,
+      334.98,
+      330.83,
+      333.18,
+      332.38
+    ],
+    "OMC": [
+      81.76,
+      84.73,
+      82.62,
+      81.13,
+      78.3,
+      79.45,
+      79.01,
+      81.07,
+      79.85,
+      79.33,
+      78.6,
+      76.57,
+      75.59,
+      75.34,
+      75.49,
+      74.7,
+      76.15,
+      75.1,
+      74.14,
+      73.63,
+      74.7,
+      74.15
+    ],
+    "HAS": [
+      93.5,
+      93,
+      92.53,
+      90.31,
+      88.97,
+      90.16,
+      91.54,
+      90.76,
+      90.21,
+      89.3,
+      88.76,
+      87.57,
+      87.72,
+      86.91,
+      86.52,
+      86.81,
+      88.09,
+      89.45,
+      88.26,
+      87.68,
+      89.98,
+      89.54
+    ],
+    "NVDA": [
+      224.41,
+      228.45,
+      230.36,
+      225.73,
+      223.67,
+      218.36,
+      218.29,
+      210.96,
+      212.17,
+      213.9,
+      219.34,
+      222.27,
+      227.38,
+      228.87,
+      225.51,
+      224.58,
+      225.07,
+      228.86,
+      227.21,
+      228.38,
+      230.86,
+      233.95
+    ],
+    "XOM": [
+      164.15,
+      162.21,
+      159.47,
+      160.66,
+      164.23,
+      165.23,
+      165.99,
+      165.08,
+      169.32,
+      163.32,
+      163.27,
+      163.54,
+      158.3,
+      158.71,
+      161.23,
+      162.14,
+      160.59,
+      162.52,
+      161.35,
+      162.75,
+      163.82,
+      164.01
+    ]
+  },
+  "meta": {
+    "JPM": {
+      "name": "JPMorgan Chase",
+      "sector": "Finance"
+    },
+    "OMC": {
+      "name": "Omnicom Group",
+      "sector": "Advertising"
+    },
+    "HAS": {
+      "name": "Hasbro",
+      "sector": "Toys"
+    },
+    "NVDA": {
+      "name": "NVIDIA",
+      "sector": "Technology"
+    },
+    "XOM": {
+      "name": "ExxonMobil",
+      "sector": "Energy"
+    }
+  },
+  "strategies": [
+    {
+      "id": "momentum",
+      "name": "Momentum Max",
+      "desc": "Buys 5-day breakouts above the moving average; sells on breakdown below it."
+    },
+    {
+      "id": "meanrev",
+      "name": "Value Vault",
+      "desc": "Buys dips 5%+ below the 10-day average; sells once price reverts back to average."
+    },
+    {
+      "id": "volbreak",
+      "name": "Breakout Bolt",
+      "desc": "Buys sharp single-day jumps (+3%); sells on a sharp drop or after a 5-day hold."
+    },
+    {
+      "id": "rebalance",
+      "name": "Steady Split",
+      "desc": "Passive benchmark: keeps ~20% of the portfolio in each stock, rebalancing drift."
+    },
+    {
+      "id": "random",
+      "name": "Coinflip Control",
+      "desc": "Random buy/sell baseline, for comparison against the real strategies above."
+    }
+  ],
+  "ais": {
+    "momentum": {
+      "cash": 819.44,
+      "holdings": {
+        "HAS": {
+          "qty": 2,
+          "entryPrice": 88.09,
+          "entryDay": 16
+        }
+      },
+      "trades": [
+        {
+          "day": 5,
+          "date": "Sep 10",
+          "ai": "Momentum Max",
+          "action": "BUY",
+          "t": "XOM",
+          "qty": 1,
+          "price": 165.23,
+          "reason": "breakout > MA5"
+        },
+        {
+          "day": 7,
+          "date": "Sep 14",
+          "ai": "Momentum Max",
+          "action": "BUY",
+          "t": "OMC",
+          "qty": 1,
+          "price": 81.07,
+          "reason": "breakout > MA5"
+        },
+        {
+          "day": 9,
+          "date": "Sep 16",
+          "ai": "Momentum Max",
+          "action": "SELL",
+          "t": "XOM",
+          "qty": 1,
+          "price": 163.32,
+          "reason": "broke below MA5",
+          "pl": -1.9099999999999966
+        },
+        {
+          "day": 10,
+          "date": "Sep 17",
+          "ai": "Momentum Max",
+          "action": "SELL",
+          "t": "OMC",
+          "qty": 1,
+          "price": 78.6,
+          "reason": "broke below MA5",
+          "pl": -2.469999999999999
+        },
+        {
+          "day": 16,
+          "date": "Sep 25",
+          "ai": "Momentum Max",
+          "action": "BUY",
+          "t": "HAS",
+          "qty": 2,
+          "price": 88.09,
+          "reason": "breakout > MA5"
+        }
+      ],
+      "valueHistory": [
+        1000,
+        1000,
+        1000,
+        1000,
+        1000,
+        1000,
+        1000,
+        1000.76,
+        999.85,
+        1002.87,
+        996.35,
+        995.62,
+        995.62,
+        995.62,
+        995.62,
+        995.62,
+        995.62,
+        995.62,
+        998.34,
+        995.96,
+        994.8,
+        999.4,
+        998.52
+      ],
+      "wins": 0,
+      "losses": 2
+    },
+    "meanrev": {
+      "cash": 848.8199999999999,
+      "holdings": {
+        "OMC": {
+          "qty": 2,
+          "entryPrice": 75.59,
+          "entryDay": 12
+        }
+      },
+      "trades": [
+        {
+          "day": 12,
+          "date": "Sep 21",
+          "ai": "Value Vault",
+          "action": "BUY",
+          "t": "OMC",
+          "qty": 2,
+          "price": 75.59,
+          "reason": "5%+ below MA10"
+        }
+      ],
+      "valueHistory": [
+        1000,
+        1000,
+        1000,
+        1000,
+        1000,
+        1000,
+        1000,
+        1000,
+        1000,
+        1000,
+        1000,
+        1000,
+        1000,
+        1000,
+        999.5,
+        999.8,
+        998.22,
+        1001.12,
+        999.02,
+        997.1,
+        996.08,
+        998.22,
+        997.12
+      ],
+      "wins": 0,
+      "losses": 0
+    },
+    "volbreak": {
+      "cash": 896.8,
+      "holdings": {
+        "HAS": {
+          "qty": 1,
+          "entryPrice": 89.98,
+          "entryDay": 20
+        }
+      },
+      "trades": [
+        {
+          "day": 1,
+          "date": "Sep 3",
+          "ai": "Breakout Bolt",
+          "action": "BUY",
+          "t": "OMC",
+          "qty": 2,
+          "price": 84.73,
+          "reason": "daily jump +2.5%"
+        },
+        {
+          "day": 2,
+          "date": "Sep 4",
+          "ai": "Breakout Bolt",
+          "action": "SELL",
+          "t": "OMC",
+          "qty": 2,
+          "price": 82.62,
+          "reason": "sharp reversal",
+          "pl": -4.219999999999999
+        },
+        {
+          "day": 7,
+          "date": "Sep 14",
+          "ai": "Breakout Bolt",
+          "action": "BUY",
+          "t": "OMC",
+          "qty": 2,
+          "price": 81.07,
+          "reason": "daily jump +2.5%"
+        },
+        {
+          "day": 11,
+          "date": "Sep 18",
+          "ai": "Breakout Bolt",
+          "action": "SELL",
+          "t": "OMC",
+          "qty": 2,
+          "price": 76.57,
+          "reason": "sharp reversal",
+          "pl": -9
+        },
+        {
+          "day": 20,
+          "date": "Oct 1",
+          "ai": "Breakout Bolt",
+          "action": "BUY",
+          "t": "HAS",
+          "qty": 1,
+          "price": 89.98,
+          "reason": "daily jump +2.5%"
+        }
+      ],
+      "valueHistory": [
+        1000,
+        1000,
+        1000,
+        995.78,
+        995.78,
+        995.78,
+        995.78,
+        995.78,
+        995.78,
+        993.34,
+        992.3,
+        990.84,
+        986.78,
+        986.78,
+        986.78,
+        986.78,
+        986.78,
+        986.78,
+        986.78,
+        986.78,
+        986.78,
+        986.78,
+        986.34
+      ],
+      "wins": 0,
+      "losses": 2
+    },
+    "rebalance": {
+      "cash": 487.27,
+      "holdings": {
+        "OMC": {
+          "qty": 2,
+          "entryPrice": 81.76,
+          "entryDay": 0
+        },
+        "HAS": {
+          "qty": 2,
+          "entryPrice": 93.5,
+          "entryDay": 0
+        },
+        "XOM": {
+          "qty": 1,
+          "entryPrice": 162.21,
+          "entryDay": 1
+        }
+      },
+      "trades": [
+        {
+          "day": 0,
+          "date": "Sep 2",
+          "ai": "Steady Split",
+          "action": "BUY",
+          "t": "OMC",
+          "qty": 2,
+          "price": 81.76,
+          "reason": "rebalance up"
+        },
+        {
+          "day": 0,
+          "date": "Sep 2",
+          "ai": "Steady Split",
+          "action": "BUY",
+          "t": "HAS",
+          "qty": 2,
+          "price": 93.5,
+          "reason": "rebalance up"
+        },
+        {
+          "day": 1,
+          "date": "Sep 3",
+          "ai": "Steady Split",
+          "action": "BUY",
+          "t": "XOM",
+          "qty": 1,
+          "price": 162.21,
+          "reason": "rebalance up"
+        }
+      ],
+      "valueHistory": [
+        1000,
+        1000,
+        1004.94,
+        997.04,
+        990.81,
+        986.04,
+        991.72,
+        994.36,
+        996.01,
+        996.71,
+        987.85,
+        985.26,
+        979.09,
+        972.19,
+        970.48,
+        972.52,
+        972.43,
+        976.34,
+        978.89,
+        973.42,
+        972.64,
+        980.45,
+        978.66
+      ],
+      "wins": 0,
+      "losses": 0
+    },
+    "random": {
+      "cash": 836.3199999999999,
+      "holdings": {
+        "OMC": {
+          "qty": 1,
+          "entryPrice": 75.34,
+          "entryDay": 13
+        },
+        "HAS": {
+          "qty": 1,
+          "entryPrice": 87.68,
+          "entryDay": 19
+        }
+      },
+      "trades": [
+        {
+          "day": 1,
+          "date": "Sep 3",
+          "ai": "Coinflip Control",
+          "action": "BUY",
+          "t": "OMC",
+          "qty": 1,
+          "price": 84.73,
+          "reason": "random entry"
+        },
+        {
+          "day": 2,
+          "date": "Sep 4",
+          "ai": "Coinflip Control",
+          "action": "SELL",
+          "t": "OMC",
+          "qty": 1,
+          "price": 82.62,
+          "reason": "random exit",
+          "pl": -2.1099999999999994
+        },
+        {
+          "day": 13,
+          "date": "Sep 22",
+          "ai": "Coinflip Control",
+          "action": "BUY",
+          "t": "OMC",
+          "qty": 1,
+          "price": 75.34,
+          "reason": "random entry"
+        },
+        {
+          "day": 15,
+          "date": "Sep 24",
+          "ai": "Coinflip Control",
+          "action": "BUY",
+          "t": "HAS",
+          "qty": 1,
+          "price": 86.81,
+          "reason": "random entry"
+        },
+        {
+          "day": 18,
+          "date": "Sep 29",
+          "ai": "Coinflip Control",
+          "action": "SELL",
+          "t": "HAS",
+          "qty": 1,
+          "price": 88.26,
+          "reason": "random exit",
+          "pl": 1.4500000000000028
+        },
+        {
+          "day": 19,
+          "date": "Sep 30",
+          "ai": "Coinflip Control",
+          "action": "BUY",
+          "t": "HAS",
+          "qty": 1,
+          "price": 87.68,
+          "reason": "random entry"
+        }
+      ],
+      "valueHistory": [
+        1000,
+        1000,
+        1000,
+        997.89,
+        997.89,
+        997.89,
+        997.89,
+        997.89,
+        997.89,
+        997.89,
+        997.89,
+        997.89,
+        997.89,
+        997.89,
+        997.89,
+        998.04,
+        997.25,
+        999.98,
+        1000.29,
+        998.14,
+        997.63,
+        1001,
+        1000.01
+      ],
+      "wins": 1,
+      "losses": 1
+    }
+  }
+}
